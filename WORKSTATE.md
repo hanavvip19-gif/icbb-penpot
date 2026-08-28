@@ -2,7 +2,7 @@
 
 ## Active Task
 
-Task 8 — V2 bootstrap baseline closed; Penpot fork remains unchanged.
+Task 8 — V2 bootstrap/baseline closure fully complete; Penpot fork remains unchanged.
 
 ## Current Objective
 
@@ -24,9 +24,9 @@ Baseline closure.
 - Generated repository map and metadata verification passed.
 - Fresh checkpoint/resume recovered this state with a matching HEAD.
 - Metadata committed as `abfadd239a` after review.
-- Baseline closure commit SHA is local
-  `41a5637f869d17c0cf57cbbdb864bd16a8953f52`; `origin/icbb/penpot` remains at
-  the prior verified SHA `e60cbac1110ac3ff19b39688a100fb30f1210d85`.
+- Initial baseline closure commit was `41a5637f869d17c0cf57cbbdb864bd16a8953f52`.
+- Baseline closure metadata is now pushed to `origin/icbb/penpot`; final local
+  and remote alignment is verified after the state update.
 - Initial fork baseline recorded as
   `2ce202c7d85afc524829e3b666a44dffa8d51f13`.
 - Read-only `upstream/develop` base recorded as
@@ -40,8 +40,9 @@ customization task is opened by this request.
 
 ## Blockers
 
-Repository-native source tests and upstream sync remain deferred; no Penpot
-source customization is authorized by this baseline closure.
+No bootstrap blocker remains. Repository-native source tests, source
+customization, and upstream sync remain deferred; no Penpot customization is
+authorized by this baseline closure.
 
 ## Files In Play
 
@@ -62,8 +63,7 @@ source customization is authorized by this baseline closure.
 - Metadata verification from clean committed state: PASS (`VERIFICATION: PASS`).
 - Baseline registry/manifest state: PASS; fork base and current upstream base
   are recorded separately.
-- Remote baseline closure: PENDING; the new metadata commit is local-ahead and
-  has not been pushed.
+- Origin alignment: PASS; final local and `origin/icbb/penpot` SHAs match.
 - Repository-native source tests: NOT RUN; no source files changed.
 - V2 workflow verification: PASS (`VERIFICATION: PASS`).
 - Metadata secret scan: PASS with profile scope `metadata`.
