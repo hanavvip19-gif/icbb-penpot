@@ -1,0 +1,30 @@
+{
+  "schema_version": "v2",
+  "repository_id": "penpot-fork",
+  "role": "development-fork",
+  "local_path": "/home/usman/projects/platform/penpot-fork",
+  "branch": "icbb/penpot",
+  "fork_owner": "hanavvip19-gif",
+  "fork_repository": "hanavvip19-gif/icbb-penpot",
+  "origin": "git@github.com:hanavvip19-gif/icbb-penpot.git",
+  "upstream": "https://github.com/penpot/penpot.git",
+  "upstream_push_policy": "fetch-only",
+  "vendor_branch": "develop",
+  "customization_branch": "icbb/penpot",
+  "operations_repository": "/home/usman/projects/platform/penpot",
+  "last_synced_sha": "2ce202c7d85afc524829e3b666a44dffa8d51f13",
+  "metadata_boundary": {
+    "versioned": [
+      "PROJECT_CONTEXT.md",
+      "WORKSTATE.md",
+      ".ai/",
+      "docs/icbb/plans/"
+    ],
+    "generated": [".generated/REPO_MAP.json"],
+    "local": [".agents/checkpoints/"]
+  },
+  "agent_adapters": {
+    "AGENTS.md": "vendor-preserved",
+    "CLAUDE.md": "symlink:PROJECT_CONTEXT.md"
+  }
+}

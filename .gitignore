@@ -22,6 +22,9 @@ opencode.json
 !CONTRIBUTING.md
 !README.md
 !AGENTS.md
+!PROJECT_CONTEXT.md
+!WORKSTATE.md
+!CLAUDE.md
 !CODE_OF_CONDUCT.md
 !SECURITY.md
 !HIGHLIGHTS.md
@@ -107,4 +110,10 @@ opencode.json
 /.opencode/prompts
 /.ci-logs
 /.codex/
+
+# AI Knowledge Workflow V2 generated and local state
+/.agents/checkpoints/*
+!/.agents/checkpoints/.gitkeep
+/.generated/*
+!/.generated/.gitkeep
 /tools/__pycache__
