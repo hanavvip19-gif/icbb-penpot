@@ -316,7 +316,7 @@ impl ShapesPoolImpl {
         // need the same matrix.
         // For resize/rotate, propagate-modifiers already includes all descendants.
         // Descendants are NOT pushed into `ids` / `modifier_uuids`: rebuild_modifier_tiles
-        // runs for roots, and re-indexes non-clipping ancestors separately.
+        // runs for roots, and widens non-clipping ancestors separately.
         let root_pairs: Vec<(usize, skia::Matrix)> = ids
             .iter()
             .filter_map(|uuid| {
@@ -355,12 +355,31 @@ impl ShapesPoolImpl {
             }
         }
 
-        // Without this a non-clipping frame keeps its pre-gesture extent for the whole
-        // drag: the reset above only drops the modified-shape clones, and every new clone
-        // copies the stale `extrect_cache` off its base shape.
+        // Grow the ancestors the modifier roots hang off instead of dropping their
+        // caches: dropping means every non-clipping ancestor re-joins all of its
+        // children once per gesture frame. A superset over-indexes tiles and never
+        // culls wrongly, and `clean_modifiers` makes it exact when the gesture ends.
+        // Must run after the cell reset above, or `get` returns the previous clone.
+        let mut ancestors = std::mem::take(&mut self.ancestor_scratch);
+
         for id in ids.iter() {
-            self.invalidate_ancestors_extrect(id);
+            let Some(rect) = self.get(id).map(|shape| shape.extrect(self, 1.0)) else {
+                continue;
+            };
+            if rect.is_empty() {
+                continue;
+            }
+
+            ancestors.clear();
+            self.collect_dependent_ancestors(id, &mut ancestors);
+            for ancestor_id in ancestors.iter() {
+                if let Some(idx) = self.uuid_to_idx.get(ancestor_id).copied() {
+                    self.shapes[idx].grow_extrect_cache(rect);
+                }
+            }
         }
+
+        self.ancestor_scratch = ancestors;
 
         // rebuild_modifier_tiles doesn't process every descendant individually.
         self.modifier_uuids = ids;

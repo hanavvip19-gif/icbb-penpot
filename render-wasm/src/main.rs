@@ -910,7 +910,17 @@ pub extern "C" fn clean_modifiers() -> Result<()> {
         // per-rAF `rebuild_modifier_tiles` in `render()` already evicts
         // the same tiles for the active modifier set, so the eviction
         // here is redundant and doubles the per-emission cost.
+        //
+        // The same guard gates narrowing the ancestor extrects `set_modifiers`
+        // widened: a non-translation gesture calls this export on every frame, so
+        // dropping the caches here unguarded would undo the widening and recompute
+        // every non-clipping ancestor once per frame. `clear-local-transform` leaves
+        // interactive mode before its final call, so a cancelled drag narrows here
+        // just like a committed one narrows through `touch_shape`.
         if !prev_modifier_ids.is_empty() && !render_state.options.is_interactive_transform() {
+            for id in prev_modifier_ids.iter() {
+                state.shapes.invalidate_ancestors_extrect(id);
+            }
             render_state.update_tiles_shapes(&prev_modifier_ids, &state.shapes)?;
         }
     });

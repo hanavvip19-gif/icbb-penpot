@@ -333,6 +333,15 @@ impl Shape {
         *self.extrect_cache.borrow_mut() = None;
     }
 
+    /// Keeps a superset rather than dropping the entry: recomputing a non-clipping
+    /// frame's extrect joins every one of its children, and every frame reads it.
+    /// An absent cache stays absent -- the next read computes it exactly.
+    pub fn grow_extrect_cache(&self, rect: math::Rect) {
+        if let Some(cached) = self.extrect_cache.borrow_mut().as_mut() {
+            cached.join(rect);
+        }
+    }
+
     pub fn set_parent(&mut self, id: Uuid) {
         self.parent_id = Some(id);
     }
