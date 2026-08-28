@@ -960,6 +960,17 @@ impl Shape {
         Bounds::from_rect(&rect)
     }
 
+    /// Whether a descendant edit can move this shape's extent. A clipping frame confines
+    /// its content; a bool rebuilds its path out of the children it operates on.
+    pub fn extrect_depends_on_children(&self) -> bool {
+        match self.shape_type {
+            Type::Bool(_) => true,
+            Type::Group(Group { masked: true }) => true,
+            Type::Group(_) | Type::Frame(_) => !self.clip_content,
+            _ => false,
+        }
+    }
+
     fn apply_children_bounds(
         &self,
         bounds: Bounds,
@@ -1021,7 +1032,7 @@ impl Shape {
         Bounds::from_rect(&rect)
     }
 
-    pub fn apply_children_blur(&self, bounds: Bounds, tree: ShapesPoolRef) -> Bounds {
+    fn apply_children_blur(&self, bounds: Bounds, tree: ShapesPoolRef) -> Bounds {
         let mut rect = bounds.to_rect();
         let mut children_blur = 0.0;
         let mut current_parent_id = self.parent_id;
@@ -1047,6 +1058,10 @@ impl Shape {
             } else {
                 break;
             }
+        }
+
+        if children_blur <= 0.0 {
+            return bounds;
         }
 
         let sigma = radius_to_sigma(children_blur);
@@ -1124,21 +1139,22 @@ impl Shape {
     }
 
     fn calculate_extrect_uncached(&self, shapes_pool: ShapesPoolRef, scale: f32) -> math::Rect {
+        // Strokes, shadows and blur live in untransformed space; expand before mapping.
         let mut bounds = self.own_extrect_bounds();
-        bounds = self.apply_children_bounds(bounds, shapes_pool, scale);
-        bounds = self.apply_children_blur(bounds, shapes_pool);
 
         if !self.transform.is_identity() {
-            // Expand everything in the shape's local axis-aligned space first (strokes,
-            // shadows, blur, children). Only after that do we map the resulting bounds
-            // through the shape transform so rotation/skew is reflected in the final
-            // extrect.
             let mut matrix = self.transform;
             let center = self.center();
             matrix.post_translate(center);
             matrix.pre_translate(-center);
             bounds.transform_mut(&matrix);
         }
+
+        // Children extrects are already absolute, ancestor rotation baked in; joining
+        // them before the transform above applies that rotation twice.
+        bounds = self.apply_children_bounds(bounds, shapes_pool, scale);
+        bounds = self.apply_children_blur(bounds, shapes_pool);
+
         bounds.to_rect()
     }
 
