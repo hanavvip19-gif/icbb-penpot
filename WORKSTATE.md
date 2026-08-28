@@ -24,8 +24,9 @@ Baseline closure.
 - Generated repository map and metadata verification passed.
 - Fresh checkpoint/resume recovered this state with a matching HEAD.
 - Metadata committed as `abfadd239a` after review.
-- Local and `origin/icbb/penpot` SHA verified as
-  `e60cbac1110ac3ff19b39688a100fb30f1210d85`.
+- Baseline closure commit SHA is local
+  `41a5637f869d17c0cf57cbbdb864bd16a8953f52`; `origin/icbb/penpot` remains at
+  the prior verified SHA `e60cbac1110ac3ff19b39688a100fb30f1210d85`.
 - Initial fork baseline recorded as
   `2ce202c7d85afc524829e3b666a44dffa8d51f13`.
 - Read-only `upstream/develop` base recorded as
@@ -61,6 +62,8 @@ source customization is authorized by this baseline closure.
 - Metadata verification from clean committed state: PASS (`VERIFICATION: PASS`).
 - Baseline registry/manifest state: PASS; fork base and current upstream base
   are recorded separately.
+- Remote baseline closure: PENDING; the new metadata commit is local-ahead and
+  has not been pushed.
 - Repository-native source tests: NOT RUN; no source files changed.
 - V2 workflow verification: PASS (`VERIFICATION: PASS`).
 - Metadata secret scan: PASS with profile scope `metadata`.
