@@ -2,16 +2,16 @@
 
 ## Active Task
 
-Task 8 — final metadata review complete; push approval is pending.
+Task 8 — V2 bootstrap baseline closed; Penpot fork remains unchanged.
 
 ## Current Objective
 
-Validate isolated V2 context, state, manifest, profile, and generated/local
-boundaries without changing vendor source or the preserved `AGENTS.md`.
+Preserve the verified Penpot V2 baseline without source customization or
+upstream sync.
 
 ## Current Phase
 
-Pilot verification and review gate.
+Baseline closure.
 
 ## Completed
 
@@ -24,16 +24,23 @@ Pilot verification and review gate.
 - Generated repository map and metadata verification passed.
 - Fresh checkpoint/resume recovered this state with a matching HEAD.
 - Metadata committed as `abfadd239a` after review.
+- Local and `origin/icbb/penpot` SHA verified as
+  `e60cbac1110ac3ff19b39688a100fb30f1210d85`.
+- Initial fork baseline recorded as
+  `2ce202c7d85afc524829e3b666a44dffa8d51f13`.
+- Read-only `upstream/develop` base recorded as
+  `2ce202c7d85afc524829e3b666a44dffa8d51f13` at
+  `2026-08-28T15:25:56Z`; no sync performed.
 
 ## In Progress
 
-No source files are in play. The committed metadata is ready for review before
-the separate push approval gate.
+No source files are in play. The Penpot fork is baseline-closed and no
+customization task is opened by this request.
 
 ## Blockers
 
-Repository-native verification is deferred until the pilot activates the
-profile. Commit and push remain review-gated.
+Repository-native source tests and upstream sync remain deferred; no Penpot
+source customization is authorized by this baseline closure.
 
 ## Files In Play
 
@@ -52,6 +59,8 @@ profile. Commit and push remain review-gated.
 - Fork identity, branch, remotes, and clean pre-bootstrap tree: PASS.
 - Baseline re-verification: PASS; fork HEAD exactly matches the initial SHA.
 - Metadata verification from clean committed state: PASS (`VERIFICATION: PASS`).
+- Baseline registry/manifest state: PASS; fork base and current upstream base
+  are recorded separately.
 - Repository-native source tests: NOT RUN; no source files changed.
 - V2 workflow verification: PASS (`VERIFICATION: PASS`).
 - Metadata secret scan: PASS with profile scope `metadata`.
@@ -60,8 +69,7 @@ profile. Commit and push remain review-gated.
 
 ## Exact Next Action
 
-After explicit approval, push with:
-`git -C /home/usman/projects/platform/penpot-fork push origin icbb/penpot`
+No next source action; preserve this baseline while Plane discovery proceeds.
 
 ## Plan
 
