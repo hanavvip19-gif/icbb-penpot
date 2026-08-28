@@ -13,8 +13,8 @@
   "customization_branch": "icbb/penpot",
   "operations_repository": "/home/usman/projects/platform/penpot",
   "initial_fork_baseline_sha": "2ce202c7d85afc524829e3b666a44dffa8d51f13",
-  "current_upstream_base_sha": "22836ea03e775c7d8988bafdf3689e340c1f1c67",
-  "current_upstream_base_observed_at": "2026-08-28T15:45:34Z",
+  "current_upstream_base_sha": "2ce202c7d85afc524829e3b666a44dffa8d51f13",
+  "current_upstream_base_observed_at": "2026-08-28T15:48:58Z",
   "last_synced_sha": "2ce202c7d85afc524829e3b666a44dffa8d51f13",
   "metadata_boundary": {
     "versioned": [
