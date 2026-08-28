@@ -29,9 +29,9 @@ Baseline closure.
   and remote alignment is verified after the state update.
 - Initial fork baseline recorded as
   `2ce202c7d85afc524829e3b666a44dffa8d51f13`.
-- Read-only `upstream/develop` base recorded as
-  `2ce202c7d85afc524829e3b666a44dffa8d51f13` at
-  `2026-08-28T15:25:56Z`; no sync performed.
+- Read-only `upstream/develop` base currently observed as
+  `22836ea03e775c7d8988bafdf3689e340c1f1c67` at
+  `2026-08-28T15:45:34Z`; no sync performed.
 
 ## In Progress
 
